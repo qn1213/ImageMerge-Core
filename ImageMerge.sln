@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31912.275
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageMerge", "ImageMerge\ImageMerge.csproj", "{581DE830-50DA-4B11-A6EC-F966824FA3A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{581DE830-50DA-4B11-A6EC-F966824FA3A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{581DE830-50DA-4B11-A6EC-F966824FA3A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{581DE830-50DA-4B11-A6EC-F966824FA3A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{581DE830-50DA-4B11-A6EC-F966824FA3A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D491DA32-51FD-4A2D-B05A-E19A2ED87306}
+	EndGlobalSection
+EndGlobal
