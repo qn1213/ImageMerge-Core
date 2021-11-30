@@ -28,4 +28,4 @@
   Output is PNG.
 # License
 MIT License
-Copyright (c) 2021 kyaru
+Copyright (c) 2021 qn1213
