@@ -7,6 +7,11 @@
 ```
 .Net FrameWork 4.6.2
 ```
+### Add Nuget Package
+Costura.Fody
+
+### Add Assembly
+System.Drawing
 # How to Use
 ## InPut
 ```
@@ -26,6 +31,7 @@
 "ImageFolder"\"output"\final_N.PNG
 ```
   Output is PNG.
+  Cut image from 10,000 pixels.
 # License
 MIT License
 Copyright (c) 2021 qn1213
