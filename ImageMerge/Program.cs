@@ -7,7 +7,7 @@ using Util;
 
 namespace ImageMerge
 {
-    class Program
+    public class Program
     {
         private string[] suppoort_extension = { ".png", ".jpg", ".jpeg" };
 
@@ -23,6 +23,15 @@ namespace ImageMerge
 
         // 여러 확장자로 할건지 단일 확장자로 할건지
         private List<string> filter;
+
+
+        private int folderCnt = 0;
+        private string log = null;
+
+
+        public bool IsFail { get => isFail; protected set => isFail = value; }
+        public int FolderCnt { get => folderCnt; protected set => FolderCnt = value; }
+        public string Log { get => log; protected set => log = value; }
 
         public Program(string[] args)
         {
@@ -47,6 +56,27 @@ namespace ImageMerge
                 isFail = true;
         }
 
+        public Program(bool rotate, string path, string ext = null)
+        {
+            this.rotate = rotate;
+            this.imgFolder = path;
+            this.outPutPath = this.imgFolder + "\\" + outPutFolder;
+
+            if (!Directory.Exists(imgFolder))
+            {
+                Console.WriteLine("[ERROR] Check Image Folder");
+                log += "[ERROR] Check Image Folder\n";
+                IsFail = true;
+                return;
+            }
+
+            if (!Directory.Exists(this.outPutPath))
+                Directory.CreateDirectory(outPutPath);
+
+            if (ext != null) this.filter = new List<string> { ext };
+            else this.filter = suppoort_extension.ToList();
+        }
+
         static void Main(string[] args)
         {
             if (args.Length > 3 || args.Length <= 1)
@@ -61,6 +91,8 @@ namespace ImageMerge
 
             combineImage.Run();
         }
+
+        
         public static void Print()
         {
             Console.WriteLine("===================[CLI Usage]===================");
@@ -89,14 +121,20 @@ namespace ImageMerge
             {
                 Console.WriteLine("[ERROR] File Count : {0}\n\n", fileCnt);
                 Print();
+
+                log += "[ERROR] File Count : " + fileCnt + "\n";
+                isFail = true;
                 return;
             }
             Console.WriteLine("File Count : {0}", fileCnt);
+            log += "File Count : " + fileCnt + "\n";
 
             string[] fileInfoList = GetFileByExtensionName_String(imgFolder, filter);
             if (fileInfoList == null)
             {
                 Console.WriteLine("[ERROR] File Info List is Null");
+                log += "[ERROR] File Info List is Null\n";
+                isFail = true;
                 return;
             }
 
@@ -115,9 +153,16 @@ namespace ImageMerge
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
+                log += ex.Message + "\n";
+                isFail = true;
                 return;
             }
+
+            foreach (Bitmap img in resultImgs)
+                img.Dispose();
+
             Console.WriteLine("Done!");
+            log += "Done!\n";
         }
 
         public List<string[]> GetFileByExtensionName_List(string path, List<string> filterList)
@@ -158,6 +203,7 @@ namespace ImageMerge
             {
                 int width = 0;
                 int height = 0;
+                int fileCnt = 0;
 
                 bool oneFile = false;
                 bool fewFile = false;
@@ -165,6 +211,7 @@ namespace ImageMerge
                 foreach (string img in files)
                 {
                     Bitmap bitmap = new Bitmap(img);
+                    fileCnt++;
 
                     oneFile = bitmap.Width >= MAX_WIDTH || bitmap.Height >= MAX_WIDTH; // 이미지 파일 1개의 크기가 맥스값이 넘을 때
                     fewFile = width >= MAX_WIDTH || height >= MAX_HEIGHT;              // 여러 이미지 파일을 합쳤는데 크기가 맥스값이 넘을 때
@@ -187,6 +234,7 @@ namespace ImageMerge
                         procImg = new Bitmap(width, height);
 
                         finalImgs.Add(DrawImage(procImg, imgs));
+                        if (fileCnt >= files.Count()) break;
 
                         width = 0;
                         height = 0;
@@ -219,6 +267,8 @@ namespace ImageMerge
                     procImg.Dispose();
 
                 Console.WriteLine(ex.Message);
+                log += ex.Message + "\n";
+                isFail = true;
                 throw;
             }
             finally
