@@ -3,6 +3,8 @@
   ```
   Support PNG, JPG, JPEG Files.
   ```
+  ![1](https://user-images.githubusercontent.com/3080569/144019791-7ea4381c-d593-47fb-bc03-e164a962cdf0.png)
+  ![2](https://user-images.githubusercontent.com/3080569/144020461-4623311e-9443-44a0-b7aa-baead54a6ce7.png)
 # How to Build
 ```
 .Net FrameWork 4.6.2
